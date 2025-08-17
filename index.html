@@ -5,6 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Proofant — Simulate & Prove Your Defenses</title>
   <meta name="description" content="Proofant — Continuous abuse & threat simulation with an agentic orchestrator (MVP), a CLI, and a UI console to design scenarios, generate plans, run them, and review artifacts." />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WX4FT297C8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WX4FT297C8', {
+      page_path: window.location.pathname,  
+      page_title: document.title 
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var homeLinkClick = function() {
+        gtag('event', 'internal_link_click', {
+          link_text: 'Home Link',
+          link_url: '/index.html'
+        });
+      }
+
+      var docLinkClick = function() {
+        gtag('event', 'internal_link_click', {
+          link_text: 'Doc Link',
+          link_url: '/docs.html'
+        });
+      }
+
+      var githubLinkClick = function() {
+        gtag('event', 'internal_link_click', {
+          link_text: 'Github Link',
+          link_url: 'github.io'
+        });
+      }
+
+      var docLink = document.getElementById('doc-link');
+      var getStartedLink = document.getElementById('getstarted-link');
+      var topDocLink = document.getElementById('top-doc-link');
+      var bottomDocLink = document.getElementById('bottom-doc-link');
+      var topGithubLink = document.getElementById('top-github-link');
+      var secondGithubLink = document.getElementById('second-bottom-github-link');
+      var bottomithubLink = document.getElementById('bottom-github-link');
+      docLink.addEventListener('click', docLinkClick);
+      topDocLink.addEventListener('click', docLinkClick);
+      bottomDocLink.addEventListener('click', docLinkClick);
+      getStartedLink.addEventListener('click', githubLinkClick);
+      topGithubLink.addEventListener('click', githubLinkClick);
+      secondGithubLink.addEventListener('click', githubLinkClick);
+      bottomithubLink.addEventListener('click', githubLinkClick);
+    });
+  </script>
   <style>
     :root{
       --bg:#ffffff; --text:#0b1220; --muted:#5b6577;
@@ -57,9 +106,8 @@
         <span>Proofant</span>
       </div>
       <nav class="nav-links">
-        <a href="docs.html">Docs</a>
-        <a class="btn outline" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">Get Started</a>
+        <a href="docs.html" id="doc-link">Docs</a>
+        <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener" id="getstarted-link">Get Started</a>
       </nav>
     </div>
   </header>
@@ -77,8 +125,8 @@
             <strong>CLI</strong> for CI/CD.
           </p>
           <div class="hero-cta">
-            <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">View on GitHub</a>
-            <a class="btn outline" href="docs.html">Read the docs</a>
+            <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener" id="top-github-link">View on GitHub</a>
+            <a class="btn outline" href="docs.html" id="top-doc-link">Read the docs</a>
             <span class="hero-card">Open source • Local‑first • Safe by design</span>
           </div>
           <div class="kpis">
@@ -159,8 +207,8 @@ python webui.py
           <p class="muted" style="margin:0">Open source • Local‑first workflow • UI + CLI</p>
         </div>
         <div>
-          <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">View on GitHub</a>
-          <a class="btn outline" href="docs.html">Read the docs</a>
+          <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener" id="second-bottom-github-link">View on GitHub</a>
+          <a class="btn outline" href="docs.html" id="bottom-doc-link">Read the docs</a>
         </div>
       </div>
     </section>
@@ -169,7 +217,7 @@ python webui.py
   <footer class="footer">
     <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div>&copy; <span id="year"></span> Proofant</div>
-      <div class="muted"><a href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">GitHub</a> • Docs</div>
+      <div class="muted"><a href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener" id="bottom-github-link">GitHub</a> • Docs</div>
     </div>
   </footer>
 
