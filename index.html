@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proofant — Simulate & Prove Your Defenses</title>
+  <meta name="description" content="Proofant — Continuous abuse & threat simulation with an agentic orchestrator (MVP), a CLI, and a UI console to design scenarios, generate plans, run them, and review artifacts." />
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b1220; --muted:#5b6577;
+      --primary:#2979FF; --primary-600:#1f64d6; --primary-50:#eaf2ff;
+      --accent:#00C2A8; --accent-600:#059686; --violet:#8B5CF6;
+      --border:#e8edf3; --card:#f7f9fc;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font:16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1120px;margin:0 auto;padding:0 18px}
+    .nav{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border);z-index:10}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+    .brand svg{width:24px;height:24px}
+    .nav-links{display:flex;gap:16px;align-items:center}
+    .btn{display:inline-block;border:1px solid transparent;border-radius:10px;padding:10px 14px;font-weight:600;letter-spacing:.2px;transition:.2s}
+    .btn.primary{background:var(--primary);color:#fff}.btn.primary:hover{background:var(--primary-600)}
+    .btn.outline{border-color:var(--border);color:var(--text);background:#fff}.btn.outline:hover{border-color:var(--primary)}
+    .hero{padding:72px 0}
+    .hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center}
+    .eyebrow{color:var(--primary-600);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:12px}
+    h1{font-size:48px;line-height:1.1;margin:10px 0 14px}
+    .sub{color:var(--muted);font-size:18px;margin-bottom:22px}
+    .hero-cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .hero-card{background:linear-gradient(180deg,#fff,var(--card));border:1px solid var(--border);border-radius:16px;padding:12px 14px;display:inline-flex;gap:10px;align-items:center;color:var(--muted)}
+    .section{padding:56px 0}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .features .card,.kpis .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px}
+    .muted{color:var(--muted)}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    pre{background:var(--card);border:1px solid var(--border);padding:14px;border-radius:12px;overflow:auto}
+    code{font-family:ui-monospace,Menlo,Consolas,monospace}
+    .footer{padding:30px 0;border-top:1px solid var(--border);color:var(--muted);font-size:14px}
+    @media (max-width: 960px){.hero-grid{grid-template-columns:1fr;gap:26px}.features,.kpis{grid-template-columns:1fr 1fr}h1{font-size:40px}}
+    @media (max-width:640px){.features,.kpis{grid-template-columns:1fr}.nav-links{display:none}h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="var(--primary)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient></defs>
+          <path fill="url(#g)" d="M16 2l9 3v8c0 6.1-3.7 11.9-9 14-5.3-2.1-9-7.9-9-14V5l9-3z"/><path d="M22.5 12l-7 7-3-3" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="16" cy="16" r="15" fill="none" stroke="var(--accent)" opacity=".18"/>
+        </svg>
+        <span>Proofant</span>
+      </div>
+      <nav class="nav-links">
+        <a href="docs.html">Docs</a>
+        <a class="btn outline" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Abuse & Threat Simulation</div>
+          <h1>Agentic Orchestrator (MVP) + CLI + UI</h1>
+          <p class="sub">
+            Run safe, production‑realistic traffic to uncover weak points before attackers do.
+            Proofant ships with a <strong>visual console</strong> to design scenarios & plans,
+            an <strong>agentic orchestrator (MVP)</strong> to coordinate runs, and a
+            <strong>CLI</strong> for CI/CD.
+          </p>
+          <div class="hero-cta">
+            <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">View on GitHub</a>
+            <a class="btn outline" href="docs.html">Read the docs</a>
+            <span class="hero-card">Open source • Local‑first • Safe by design</span>
+          </div>
+          <div class="kpis">
+            <div class="card"><strong>15m</strong><br/><span class="muted">to first simulation</span></div>
+            <div class="card"><strong>UI + CLI</strong><br/><span class="muted">one workflow</span></div>
+            <div class="card"><strong>Artifacts</strong><br/><span class="muted">CSV • JSON • JUnit</span></div>
+          </div>
+        </div>
+
+        <!-- Simple illustration -->
+        <div aria-hidden="true">
+          <svg viewBox="0 0 520 420" width="100%">
+            <defs>
+              <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--primary)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient>
+              <linearGradient id="nodeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--accent)"/><stop offset="100%" stop-color="var(--violet)"/></linearGradient>
+              <filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="18" result="b"/><feMerge><feMergeNode in="b"/></feMerge></filter>
+            </defs>
+            <ellipse cx="380" cy="120" rx="120" ry="60" fill="var(--primary)" opacity=".08" filter="url(#soft)"/>
+            <ellipse cx="180" cy="260" rx="150" ry="80" fill="var(--accent)" opacity=".07" filter="url(#soft)"/>
+            <path d="M260 118l60 18v54c0 42-25 82-60 96-35-14-60-54-60-96v-57l60-15z" fill="url(#shieldGrad)" stroke="var(--primary-600)" stroke-width="1.5"/>
+            <path d="M304 170l-52 52-24-24" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="260" cy="202" r="125" fill="none" stroke="var(--accent)" stroke-dasharray="6 10" opacity=".6"/>
+            <g stroke="url(#nodeGrad)" stroke-width="2">
+              <circle cx="110" cy="210" r="14" fill="var(--primary-50)"/>
+              <circle cx="410" cy="210" r="14" fill="var(--primary-50)"/>
+              <circle cx="260" cy="340" r="14" fill="var(--primary-50)"/>
+              <path d="M124 210h236"/><path d="M260 216v110"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Why Proofant</h2>
+        <p class="muted">Purpose‑built to validate real defenses, not just create pretty graphs.</p>
+        <div class="features" style="margin-top:16px">
+          <div class="card"><strong>Agentic orchestrator (MVP)</strong><p class="muted">The agent coordinates scenario generation, applies limits, runs variants, and stops gracefully. Room to grow into richer agent flows.</p></div>
+          <div class="card"><strong>UI + CLI</strong><p class="muted">Design scenarios and plans visually, or drive everything from the CLI for CI/CD.</p></div>
+          <div class="card"><strong>Safe by design</strong><p class="muted">Guardrails and a local test app let you exercise flows without touching real users or payments.</p></div>
+          <div class="card"><strong>Controls validation</strong><p class="muted">Measure impact on WAF, rate limits, bot defenses, auth, and risk engines with artifacts you can diff over time.</p></div>
+          <div class="card"><strong>Scheduling & Scorecards</strong><p class="muted">Automate recurring runs, export CSV/JSON/JUnit, and gate deploys with thresholds.</p></div>
+          <div class="card"><strong>Open source</strong><p class="muted">Fork it, extend it, and help shape the roadmap. <a href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">Contribute on GitHub</a>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Quickstart (UI + CLI + Demo Test App)</h2>
+<pre><code># 1) Clone
+git clone YOUR_GITHUB_REPO_URL
+cd proofant
+
+# 2) Create a venv & install
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt  # or: pip install fastapi uvicorn flask
+
+# 3) Start the demo target (test app)
+# The app exposes /login, /dashboard, /account and sets CSRF/session cookies.
+uvicorn app:app --port 9001 --reload
+
+# 4) Start the UI console (local only)
+python webui.py
+# open http://127.0.0.1:8008
+
+# 5) Create a scenario → generate a plan → run
+# See Docs → Quickstart for screenshots and details.
+</code></pre>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(90deg,var(--primary-50),#fff);border:1px solid var(--border);border-radius:16px;padding:24px">
+        <div>
+          <h3 style="margin:0 0 6px">Start proving your defenses</h3>
+          <p class="muted" style="margin:0">Open source • Local‑first workflow • UI + CLI</p>
+        </div>
+        <div>
+          <a class="btn primary" href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">View on GitHub</a>
+          <a class="btn outline" href="docs.html">Read the docs</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>&copy; <span id="year"></span> Proofant</div>
+      <div class="muted"><a href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">GitHub</a> • Docs</div>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>

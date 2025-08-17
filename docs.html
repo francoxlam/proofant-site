@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proofant Docs — CLI, UI Console & Agentic Orchestrator</title>
+  <meta name="description" content="How to use Proofant via the UI console and CLI. Includes quickstart with demo Test App, run/stop/schedule, artifacts, and HTTP API reference." />
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b1220; --muted:#5b6577;
+      --primary:#2979FF; --primary-600:#1f64d6; --accent:#00C2A8;
+      --border:#e8edf3; --card:#f7f9fc;
+      --shadow: 0 1px 2px rgba(16,24,40,.06);
+      --shadow-lg: 0 8px 20px rgba(41,121,255,.15);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+    }
+    a{color:var(--primary); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* --- Top bar ---------------------------------------------------------- */
+    header{position:sticky; top:0; z-index:10; background:rgba(255,255,255,.85);
+      backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--border)}
+    .top{display:flex; align-items:center; justify-content:space-between; padding:12px 16px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .brand svg{width:22px; height:22px}
+    .brand a{color:inherit; text-decoration:none}
+
+    /* Modern buttons */
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:10px; border:1px solid var(--border);
+      background:#fff; color:var(--text); font-weight:600; letter-spacing:.2px;
+      box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+      text-decoration:none;
+    }
+    .btn:hover{border-color:var(--primary); transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{
+      background:linear-gradient(180deg,var(--primary),var(--primary-600));
+      color:#fff; border-color:transparent; box-shadow:var(--shadow-lg);
+    }
+    .btn.primary:hover{filter:brightness(.98)}
+    .btn.ghost{background:transparent; border-color:transparent}
+    .btn.ghost:hover{background:#f0f4ff; border-color:var(--border)}
+    .btn.small{padding:8px 12px; border-radius:9px; font-size:14px}
+
+    /* --- Layout: left nav + content (left-aligned) ----------------------- */
+    main{
+      display:grid; grid-template-columns:260px minmax(0,1fr);
+      gap:24px; padding:18px 16px 40px 16px; width:100%;
+    }
+    nav#toc{
+      position:sticky; top:64px; align-self:start;
+      border-right:1px solid var(--border); padding-right:12px;
+      max-height:calc(100vh - 80px); overflow:auto;
+    }
+    #toc .section-title{font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin:12px 0 8px}
+    #toc a{display:block; padding:7px 10px; border-radius:8px; color:inherit; text-decoration:none}
+    #toc a:hover{background:#f3f6fb}
+    #toc a.active{background:var(--primary); color:#fff}
+
+    /* Content column: fixed max width, left aligned with whitespace on right */
+    #content{
+      min-width:0;
+      max-width: 980px;               /* limit width so lines wrap nicely */
+      padding-right: 8px;
+    }
+
+    /* Typography / blocks */
+    h1{font-size:30px; margin:.2rem 0 1rem}
+    h2{margin:1.6rem 0 .4rem; scroll-margin-top:80px}
+    h3{margin:1.1rem 0 .3rem}
+    .muted{color:var(--muted)}
+    .card{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px}
+    pre{
+      background:var(--card); border:1px solid var(--border);
+      padding:14px; border-radius:12px; overflow:auto; max-width:100%;
+      box-shadow:var(--shadow);
+    }
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+
+    .two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .kq{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+
+    /* Small screens: stack */
+    @media (max-width: 960px){
+      main{grid-template-columns:1fr}
+      nav#toc{position:static; border-right:none; padding-right:0; margin-bottom:12px; max-height:none}
+      .two,.kq{grid-template-columns:1fr}
+      #content{max-width: none}
+    }
+
+    @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="var(--primary)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient></defs>
+          <path fill="url(#g)" d="M16 2l9 3v8c0 6.1-3.7 11.9-9 14-5.3-2.1-9-7.9-9-14V5l9-3z"/>
+          <path d="M22.5 12l-7 7-3-3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <a href="index.html">Proofant</a>
+      </div>
+      <div class="links">
+        <a class="btn small ghost" href="index.html">← Back to site</a>
+        <a id="gh" class="btn small primary" href="https://github.com/your-org/your-repo" target="_blank" rel="noreferrer">
+          <!-- swap the link above to your actual GitHub repo -->
+          GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Sidebar -->
+    <nav id="toc" aria-label="Table of contents">
+      <div class="section-title">Guides</div>
+      <a href="#overview">Overview</a>
+      <a href="#quickstart">Quickstart</a>
+      <a href="#testapp">Test App (Demo)</a>
+      <a href="#console">Run the UI Console</a>
+      <a href="#cli">CLI Workflow</a>
+      <a href="#scenarios">Scenarios</a>
+      <a href="#profiles">Profiles</a>
+      <a href="#plans">Plans</a>
+      <a href="#runstop">Run, Stop & Schedule</a>
+      <a href="#artifacts">Artifacts & Reports</a>
+      <a href="#agentic">Agentic Orchestrator (MVP)</a>
+
+      <div class="section-title" style="margin-top:16px">Reference</div>
+      <a href="#api">HTTP API</a>
+      <a href="#layout">Project Layout</a>
+      <a href="#troubleshoot">Troubleshooting</a>
+    </nav>
+
+    <!-- Content -->
+    <div id="content">
+      <h1 id="overview">Overview</h1>
+      <p>
+        Proofant helps you safely simulate abusive traffic (credential stuffing, scraping, brute force, etc.)
+        and <em>prove</em> defenses with goals and artifacts. It includes a <strong>visual UI console</strong>
+        to design scenarios, generate plans, run them, and review results without hand‑editing JSON everywhere.
+      </p>
+      <div class="card">
+        The console provides panels for <strong>Scenarios</strong>, <strong>Profiles</strong>, <strong>Plans</strong>, and <strong>Credentials</strong>, plus an <strong>Actions &amp; Output</strong> drawer (status, artifacts, quick metrics, summary). Use <em>Run</em>, <em>Save</em>, and open the drawer while a run is active.
+      </div>
+
+      <h2 id="quickstart">Quickstart</h2>
+      <div class="two">
+        <div class="card">
+          <h3>1) Start the console</h3>
+<pre><code>python webui.py
+# Open: http://127.0.0.1:8008/</code></pre>
+          <p class="muted">Serves the UI locally (dev/VPN). Artifacts go under <code>results/</code>.</p>
+        </div>
+        <div class="card">
+          <h3>2) Create a scenario</h3>
+          <ol>
+            <li>Click <strong>Scenarios</strong> → “+” → name it <code>demo.json</code>.</li>
+            <li>Fill in <em>Target &amp; Auth</em>, set <em>Flow</em>, add <em>Success criteria</em>.</li>
+            <li>Link <em>Profiles</em> for traffic mix (optional).</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>3) Generate a plan</h3>
+          <ol>
+            <li>Open <strong>Plans</strong> → <em>Generate from Scenario</em>.</li>
+            <li>Set width/limits (RPS, duration, concurrency).</li>
+            <li>Click <em>Generate plan from scenario</em>, then <em>Save</em>.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>4) Run &amp; review</h3>
+          <ol>
+            <li>Click <strong>Run</strong>. Open the <strong>Actions &amp; Output</strong> drawer.</li>
+            <li>Review Quick Metrics and artifacts (CSV/JSON/JUnit).</li>
+            <li>Use <strong>Stop</strong> to halt an active run (see “Run, Stop &amp; Schedule”).</li>
+          </ol>
+        </div>
+      </div>
+
+      <h2 id="testapp">Test App (Demo)</h2>
+      <p>
+        The repo ships with a tiny demo web app to exercise scenarios end‑to‑end. It implements a CSRF’d login
+        flow with <code>/login</code>, <code>/account</code>, and <code>/logout</code>.
+      </p>
+      <div class="kq">
+        <div class="card">
+          <h3>Run the Test App</h3>
+<pre><code># from the repo root
+pip install fastapi uvicorn
+
+# default demo creds (optional)
+export PROOFANT_DEMO_USER=demo
+export PROOFANT_DEMO_PASS=demo
+
+# start the app (port 9001)
+uvicorn app:app --reload --port 9001
+# Visit: http://127.0.0.1:9001/login</code></pre>
+        </div>
+        <div class="card">
+          <h3>Point a Scenario at it</h3>
+          <ol>
+            <li>Set Target URL to <code>http://127.0.0.1:9001</code>.</li>
+            <li>Use Flow steps with relative URLs (<code>/login</code>, <code>/account</code>, <code>/logout</code>).</li>
+            <li>Enable CSRF extraction if needed (the console exposes a toggle and token field).</li>
+          </ol>
+          <p class="muted">The included <em>flow template</em> in the console mirrors this Test App.</p>
+        </div>
+      </div>
+
+      <h2 id="console">Run the UI Console</h2>
+      <p>
+        The console lives at <code>http://127.0.0.1:8008/</code> (served by <code>webui.py</code>).
+        It manages files under <code>scenarios/</code>, <code>profiles/</code>, <code>credentials/</code>, <code>plans/</code> and writes run artifacts under <code>results/</code>.
+      </p>
+      <p class="muted">A built‑in UI makes complex scenarios and multi‑variant plans easy to manage.</p>
+
+      <h2 id="cli">CLI Workflow</h2>
+      <p>Use the CLI for quick local runs and CI. Example:</p>
+<pre><code># initialize a project
+proofant init
+
+# run a simulation against staging
+proofant run --target https://staging.example.com --scenario signup-fraud --rps 120 --duration 5m
+
+# create a report
+proofant report --format html --out reports/sprint-27.html
+
+# gate a deployment (CI)
+proofant score --min 85</code></pre>
+
+      <h2 id="scenarios">Scenarios</h2>
+      <ul>
+        <li><strong>Flow</strong> (GET/POST/etc. with templating, CSRF fetch, extract, save).</li>
+        <li><strong>Success criteria</strong> drive pass/fail.</li>
+        <li><strong>Profiles</strong> supply headers, proxies, behavior, credentials.</li>
+      </ul>
+
+      <h2 id="profiles">Profiles</h2>
+      <p>Profiles define traffic mix and behavior (headers, proxies, think time, false starts).</p>
+
+      <h2 id="plans">Plans</h2>
+      <p>Plans expand a scenario into N variants (width) with RPS/duration/concurrency limits.</p>
+
+      <h2 id="runstop">Run, Stop &amp; Schedule</h2>
+      <ul>
+        <li><strong>Run</strong> a plan or scenario from the console header.</li>
+        <li><strong>Stop</strong> halts the current run. UI aborts the request and the backend sets a stop event.</li>
+        <li><strong>Schedule</strong> recurring runs via the plan header. Stop schedules individually or all at once.</li>
+      </ul>
+
+      <h2 id="artifacts">Artifacts &amp; Reports</h2>
+      <ul>
+        <li><code>events.csv</code> — event stream</li>
+        <li><code>summary.json</code> — metrics and goals</li>
+        <li><code>junit.xml</code> — CI‑friendly pass/fail</li>
+      </ul>
+
+      <h2 id="agentic">Agentic Orchestrator (MVP)</h2>
+      <p>The agent coordinates the lifecycle deterministically today, with room for adaptive strategies later:</p>
+      <ol>
+        <li><strong>Propose</strong> a plan from a scenario (<code>POST /api/agent/plan</code>).</li>
+        <li><strong>Run</strong> the plan variant‑by‑variant with limits and a cooperative <code>stop_event</code> (<code>/api/agent/run</code> + <code>/api/agent/stop_run</code>).</li>
+        <li><strong>Evaluate</strong> goals and produce pass/fail + artifacts.</li>
+      </ol>
+
+      <h2 id="api">HTTP API (selected)</h2>
+      <div class="two">
+        <div class="card">
+          <h3>Scenarios</h3>
+<pre><code>GET    /api/scenarios
+GET    /api/scenarios/&lt;file&gt;
+POST   /api/scenarios                  # {filename, from_template?}
+PUT    /api/scenarios/&lt;file&gt;           # {dir:"scenarios", scenario:{}}
+DELETE /api/scenarios/&lt;file&gt;</code></pre>
+        </div>
+        <div class="card">
+          <h3>Plans &amp; Agent</h3>
+<pre><code>POST   /api/agent/plan                 # propose plan from scenario
+POST   /api/agent/run                  # run plan (variants, limits)
+POST   /api/agent/stop_run             # stop active plan run
+GET    /api/agent/status               # running flags, schedules
+POST   /api/agent/schedule             # every_seconds
+POST   /api/agent/stop                 # stop schedule by id
+POST   /api/agent/stop_all             # stop all schedules</code></pre>
+        </div>
+      </div>
+
+      <h2 id="layout">Project Layout</h2>
+<pre><code>scenarios/     # scenario JSON
+profiles/      # profile JSON
+credentials/   # credentials (txt/csv)
+plans/         # saved plan JSON
+results/       # run artifacts (csv/json/junit)
+webui.py       # local UI console
+app.py         # demo Test App (FastAPI)</code></pre>
+
+      <h2 id="troubleshoot">Troubleshooting</h2>
+      <ul>
+        <li><strong>Stop didn’t feel immediate?</strong> UI aborts fetch; backend sets a stop event. If a request is mid‑flight, it completes then stops. Check <code>/api/agent/status</code>.</li>
+        <li><strong>403 on demo login?</strong> CSRF mismatch. Ensure the token is passed (form field or header) and the cookie is set by the Test App.</li>
+        <li><strong>Nothing runs?</strong> Verify your scenario has at least one profile and credentials.</li>
+      </ul>
+    </div>
+  </main>
+
+  <script>
+    // --- Optional: set your GitHub repo in one place
+    const GITHUB_URL = 'https://github.com/your-org/your-repo'; // ← change to your repository
+    const gh = document.getElementById('gh'); if (gh) gh.href = GITHUB_URL;
+
+    // --- Scroll-sync TOC highlighting (left nav)
+    (function(){
+      const toc = document.getElementById('toc');
+      const links = toc ? toc.querySelectorAll('a[href^="#"]') : [];
+      const ids = Array.from(links).map(a => a.getAttribute('href').slice(1)).filter(Boolean);
+      const targets = ids.map(id => document.getElementById(id)).filter(Boolean);
+
+      function setActive(id){
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+id));
+      }
+      if (location.hash && ids.includes(location.hash.slice(1))) { setActive(location.hash.slice(1)); }
+      else if (ids[0]) { setActive(ids[0]); }
+
+      const io = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActive(visible[0].target.id);
+      }, { root: null, rootMargin: '0px 0px -66% 0px', threshold: [0, 1] });
+
+      targets.forEach(el => io.observe(el));
+      links.forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href').slice(1);
+          const el = document.getElementById(id); if (!el) return;
+          e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null,'','#'+id); setActive(id);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
