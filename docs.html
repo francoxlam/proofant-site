@@ -3,39 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Proofant Docs — CLI, UI Console & Agentic Orchestrator</title>
   <meta name="description" content="How to use Proofant via the UI console and CLI. Includes quickstart with demo Test App, run/stop/schedule, artifacts, and HTTP API reference." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.proofant.com/docs.html" />
+
+  <!-- Open Graph & Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.proofant.com/docs.html">
+  <meta property="og:title" content="Proofant Docs — UI Console, CLI & Agent">
+  <meta property="og:description" content="Quickstart, scenarios, plans, artifacts, and HTTP API reference for Proofant.">
+  <meta property="og:image" content="https://www.proofant.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Proofant Docs">
+  <meta name="twitter:description" content="Quickstart, scenarios, plans, artifacts, and API reference.">
+  <meta name="twitter:image" content="https://www.proofant.com/og-image.png">
+
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WX4FT297C8"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    gtag('config', 'G-WX4FT297C8', {
-      page_path: window.location.pathname,  
-      page_title: document.title 
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-      var homeLinkClick = function() {
-        gtag('event', 'internal_link_click', {
-          link_text: 'Home Link',
-          link_url: '/index.html'
-        });
-      }
-
-      var homeLink = document.getElementById('home-link');
-      var backToSiteLink = document.getElementById('back-to-site-link');
-      homeLink.addEventListener('click', homeLinkClick);
-      backToSiteLink.addEventListener('click', homeLinkClick);
-    });
+    gtag('config', 'G-WX4FT297C8', { page_path: window.location.pathname, page_title: document.title });
   </script>
+
   <style>
+    /* ===== Accessible theme tokens ===== */
     :root{
-      --bg:#ffffff; --text:#0b1220; --muted:#5b6577;
+      --bg:#ffffff; --text:#0b1220;
+      --muted:#475467; /* darker for AA on white */
       --primary:#2979FF; --primary-600:#1f64d6; --accent:#00C2A8;
-      --border:#e8edf3; --card:#f7f9fc;
+
+      /* Surfaces */
+      --border:#d7dee8;
+      --card-bg:#ffffff;
+      --card-fg:#0b1220;
+      --card-border:#d7dee8;
+
+      /* Header (light) */
+      --header-bg: rgba(255,255,255,.98); /* near-solid to preserve contrast over dark hero */
+      --header-fg: #0b1220;
+      --header-border:#d7dee8;
+
       --shadow: 0 1px 2px rgba(16,24,40,.06);
       --shadow-lg: 0 8px 20px rgba(41,121,255,.15);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1220; --text:#e9eef6;
+        --muted:#a9b3c7;  /* brighter muted for AA on dark */
+        --primary:#6ca3ff; --primary-600:#8bb5ff; --accent:#33d6c2;
+
+        --border:#24304a;
+        --card-bg:#111a2e;
+        --card-fg:#e9eef6;
+        --card-border:#24304a;
+
+        --header-bg: rgba(11,18,32,.94);
+        --header-fg: #e9eef6;
+        --header-border:#24304a;
+      }
     }
 
     *{box-sizing:border-box}
@@ -48,41 +78,50 @@
     a{color:var(--primary); text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* --- Top bar ---------------------------------------------------------- */
-    header{position:sticky; top:0; z-index:10; background:rgba(255,255,255,.85);
-      backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--border)}
-    .top{display:flex; align-items:center; justify-content:space-between; padding:12px 16px}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
-    .brand svg{width:22px; height:22px}
-    .brand a{color:inherit; text-decoration:none}
+    /* Skip link */
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:16px;top:10px;width:auto;height:auto;padding:8px 12px;border-radius:8px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow)}
 
-    /* Modern buttons */
+    /* ===== Top bar (high-contrast) ===== */
+    header{
+      position:sticky; top:0; z-index:10;
+      background:var(--header-bg);
+      color:var(--header-fg);
+      backdrop-filter:saturate(140%) blur(6px);
+      border-bottom:1px solid var(--header-border);
+    }
+    .top{display:flex; align-items:center; justify-content:space-between; padding:12px 16px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--header-fg)}
+    .brand svg{width:22px; height:22px}
+    .brand a{color:var(--header-fg); text-decoration:none}
+    header a{color:var(--header-fg)}                   /* ensure header links inherit high-contrast color */
+    header a:hover{color:var(--primary-600)}
+
+    /* Buttons */
     .btn{
       display:inline-flex; align-items:center; gap:8px;
-      padding:10px 14px; border-radius:10px; border:1px solid var(--border);
+      padding:10px 14px; border-radius:10px; border:1px solid var(--card-border);
       background:#fff; color:var(--text); font-weight:600; letter-spacing:.2px;
       box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
-      text-decoration:none;
+      text-decoration:none; min-height:40px;
     }
     .btn:hover{border-color:var(--primary); transform:translateY(-1px)}
     .btn:active{transform:translateY(0)}
-    .btn.primary{
-      background:linear-gradient(180deg,var(--primary),var(--primary-600));
-      color:#fff; border-color:transparent; box-shadow:var(--shadow-lg);
-    }
+    .btn.primary{ background: linear-gradient(180deg, #2563EB, #1D4ED8); color:#fff; }
+    .btn:focus-visible{ outline:3px solid rgba(37,99,235,.35); outline-offset:2px; }
     .btn.primary:hover{filter:brightness(.98)}
     .btn.ghost{background:transparent; border-color:transparent}
-    .btn.ghost:hover{background:#f0f4ff; border-color:var(--border)}
+    .btn.ghost:hover{background:#f0f4ff; border-color:var(--card-border)}
     .btn.small{padding:8px 12px; border-radius:9px; font-size:14px}
 
-    /* --- Layout: left nav + content (left-aligned) ----------------------- */
+    /* ===== Layout: left nav + content ===== */
     main{
       display:grid; grid-template-columns:260px minmax(0,1fr);
       gap:24px; padding:18px 16px 40px 16px; width:100%;
     }
     nav#toc{
       position:sticky; top:64px; align-self:start;
-      border-right:1px solid var(--border); padding-right:12px;
+      border-right:1px solid var(--card-border); padding-right:12px;
       max-height:calc(100vh - 80px); overflow:auto;
     }
     #toc .section-title{font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin:12px 0 8px}
@@ -90,28 +129,29 @@
     #toc a:hover{background:#f3f6fb}
     #toc a.active{background:var(--primary); color:#fff}
 
-    /* Content column: fixed max width, left aligned with whitespace on right */
-    #content{
-      min-width:0;
-      max-width: 980px;               /* limit width so lines wrap nicely */
-      padding-right: 8px;
-    }
-
-    /* Typography / blocks */
-    h1{font-size:30px; margin:.2rem 0 1rem}
+    /* Content column */
+    #content{min-width:0; max-width:980px; padding-right:8px}
+    h1{font-size:30px; margin:.2rem 0 1rem; text-wrap:balance}
     h2{margin:1.6rem 0 .4rem; scroll-margin-top:80px}
     h3{margin:1.1rem 0 .3rem}
     .muted{color:var(--muted)}
-    .card{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px}
+
+    /* Cards and code blocks — clearer edges + AA text */
+    .card{
+      background:var(--card-bg); color:var(--card-fg);
+      border:1px solid var(--card-border); border-radius:12px; padding:14px
+    }
     pre{
-      background:var(--card); border:1px solid var(--border);
-      padding:14px; border-radius:12px; overflow:auto; max-width:100%;
-      box-shadow:var(--shadow);
+      background:var(--card-bg); border:1px solid var(--card-border);
+      padding:14px; border-radius:12px; overflow:auto; max-width:100%; box-shadow:var(--shadow);
     }
     code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
 
     .two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
     .kq{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+
+    /* Virtualize long sections for mobile perf */
+    #content > section, #content > div.card { content-visibility: auto; contain-intrinsic-size: 1px 600px; }
 
     /* Small screens: stack */
     @media (max-width: 960px){
@@ -125,6 +165,8 @@
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to main content</a>
+
   <header>
     <div class="top">
       <div class="brand">
@@ -134,18 +176,18 @@
           <path fill="url(#g)" d="M16 2l9 3v8c0 6.1-3.7 11.9-9 14-5.3-2.1-9-7.9-9-14V5l9-3z"/>
           <path d="M22.5 12l-7 7-3-3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <a href="index.html" id="home-link">Proofant</a>
+        <a href="index.html" id="home-link" data-track="docs_home">Proofant</a>
       </div>
       <div class="links">
-        <a class="btn small ghost" href="index.html" id="back-to-site-link">← Back to site</a>
-        <a id="gh" class="btn small primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noreferrer">
+        <a class="btn small ghost" href="index.html" id="back-to-site-link" data-track="docs_back">← Back to site</a>
+        <a id="gh" class="btn small primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noreferrer" data-track="docs_github">
           GitHub
         </a>
       </div>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- Sidebar -->
     <nav id="toc" aria-label="Table of contents">
       <div class="section-title">Guides</div>
@@ -157,8 +199,8 @@
       <a href="#scenarios">Scenarios</a>
       <a href="#profiles">Profiles</a>
       <a href="#plans">Plans</a>
-      <a href="#runstop">Run, Stop & Schedule</a>
-      <a href="#artifacts">Artifacts & Reports</a>
+      <a href="#runstop">Run, Stop &amp; Schedule</a>
+      <a href="#artifacts">Artifacts &amp; Reports</a>
       <a href="#agentic">Agentic Orchestrator (MVP)</a>
 
       <div class="section-title" style="margin-top:16px">Reference</div>
@@ -340,11 +382,7 @@ app.py         # demo Test App (FastAPI)</code></pre>
   </main>
 
   <script>
-    // --- Optional: set your GitHub repo in one place
-    const GITHUB_URL = 'https://github.com/francoxlam/proofant'; // ← change to your repository
-    const gh = document.getElementById('gh'); if (gh) gh.href = GITHUB_URL;
-
-    // --- Scroll-sync TOC highlighting (left nav)
+    // Scroll-sync TOC highlighting
     (function(){
       const toc = document.getElementById('toc');
       const links = toc ? toc.querySelectorAll('a[href^="#"]') : [];
@@ -358,9 +396,7 @@ app.py         # demo Test App (FastAPI)</code></pre>
       else if (ids[0]) { setActive(ids[0]); }
 
       const io = new IntersectionObserver((entries) => {
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible[0]) setActive(visible[0].target.id);
       }, { root: null, rootMargin: '0px 0px -66% 0px', threshold: [0, 1] });
 
@@ -375,5 +411,7 @@ app.py         # demo Test App (FastAPI)</code></pre>
       });
     })();
   </script>
+
+  <script src="site.js"></script>
 </body>
 </html>

@@ -3,132 +3,115 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Proofant — Simulate & Prove Your Defenses</title>
-  <meta name="description" content="Proofant — Continuous abuse & threat simulation with an agentic orchestrator (MVP), a CLI, and a UI console to design scenarios, generate plans, run them, and review artifacts." />
+
+  <title>Abuse Simulation for Bot Defenses — Credential Stuffing & Scraping Tests | Proofant</title>
+  <meta name="description" content="Run safe, production‑realistic abuse simulations—credential stuffing, scraping, and brute‑force—to prove your defenses. Visual UI console, CLI, and an agentic orchestrator. Export CSV/JSON/JUnit artifacts and gate deploys in CI." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://your-domain.example/" />
+
+  <!-- Favicons (replace with your assets) -->
+  <link rel="icon" href="/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Open Graph & Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://your-domain.example/">
+  <meta property="og:title" content="Prove Your Bot Defenses — Proofant">
+  <meta property="og:description" content="Abuse simulation for credential stuffing, scraping, and brute‑force with a UI console, CLI, and agent orchestrator.">
+  <meta property="og:image" content="https://your-domain.example/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Prove Your Bot Defenses — Proofant">
+  <meta name="twitter:description" content="Abuse simulation for credential stuffing & scraping.">
+  <meta name="twitter:image" content="https://your-domain.example/og-image.png">
+
+  <!-- Structured Data: Organization + SoftwareApplication (update URLs/logo as needed) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Proofant",
+    "url": "https://www.proofant.com/",
+    "logo": "https://www.proofant.com/static/proofant-logo.png",
+    "sameAs": ["https://github.com/francoxlam/proofant"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Proofant",
+    "applicationCategory":"SecurityApplication",
+    "operatingSystem":"Windows, macOS, Linux",
+    "softwareVersion":"0.x",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "downloadUrl":"https://github.com/francoxlam/proofant",
+    "description":"Open‑source abuse simulation toolkit to test credential stuffing, scraping, and brute‑force defenses with UI, CLI, and agent orchestrator."
+  }
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="site.css" />
+
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WX4FT297C8"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-WX4FT297C8', {
-      page_path: window.location.pathname,  
-      page_title: document.title 
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-      var homeLinkClick = function() {
-        gtag('event', 'internal_link_click', {
-          link_text: 'Home Link',
-          link_url: '/index.html'
-        });
-      }
-
-      var docLinkClick = function() {
-        gtag('event', 'internal_link_click', {
-          link_text: 'Doc Link',
-          link_url: '/docs.html'
-        });
-      }
-
-      var githubLinkClick = function() {
-        gtag('event', 'internal_link_click', {
-          link_text: 'Github Link',
-          link_url: 'github.io'
-        });
-      }
-
-      var docLink = document.getElementById('doc-link');
-      var getStartedLink = document.getElementById('getstarted-link');
-      var topDocLink = document.getElementById('top-doc-link');
-      var bottomDocLink = document.getElementById('bottom-doc-link');
-      var topGithubLink = document.getElementById('top-github-link');
-      var secondGithubLink = document.getElementById('second-bottom-github-link');
-      var bottomithubLink = document.getElementById('bottom-github-link');
-      docLink.addEventListener('click', docLinkClick);
-      topDocLink.addEventListener('click', docLinkClick);
-      bottomDocLink.addEventListener('click', docLinkClick);
-      getStartedLink.addEventListener('click', githubLinkClick);
-      topGithubLink.addEventListener('click', githubLinkClick);
-      secondGithubLink.addEventListener('click', githubLinkClick);
-      bottomithubLink.addEventListener('click', githubLinkClick);
+      page_path: window.location.pathname,
+      page_title: document.title
     });
   </script>
-  <style>
-    :root{
-      --bg:#ffffff; --text:#0b1220; --muted:#5b6577;
-      --primary:#2979FF; --primary-600:#1f64d6; --primary-50:#eaf2ff;
-      --accent:#00C2A8; --accent-600:#059686; --violet:#8B5CF6;
-      --border:#e8edf3; --card:#f7f9fc;
-    }
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font:16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
-    a{color:var(--primary);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{max-width:1120px;margin:0 auto;padding:0 18px}
-    .nav{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border);z-index:10}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
-    .brand svg{width:24px;height:24px}
-    .nav-links{display:flex;gap:16px;align-items:center}
-    .btn{display:inline-block;border:1px solid transparent;border-radius:10px;padding:10px 14px;font-weight:600;letter-spacing:.2px;transition:.2s}
-    .btn.primary{background:var(--primary);color:#fff}.btn.primary:hover{background:var(--primary-600)}
-    .btn.outline{border-color:var(--border);color:var(--text);background:#fff}.btn.outline:hover{border-color:var(--primary)}
-    .hero{padding:72px 0}
-    .hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center}
-    .eyebrow{color:var(--primary-600);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:12px}
-    h1{font-size:48px;line-height:1.1;margin:10px 0 14px}
-    .sub{color:var(--muted);font-size:18px;margin-bottom:22px}
-    .hero-cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .hero-card{background:linear-gradient(180deg,#fff,var(--card));border:1px solid var(--border);border-radius:16px;padding:12px 14px;display:inline-flex;gap:10px;align-items:center;color:var(--muted)}
-    .section{padding:56px 0}
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .features .card,.kpis .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px}
-    .muted{color:var(--muted)}
-    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
-    pre{background:var(--card);border:1px solid var(--border);padding:14px;border-radius:12px;overflow:auto}
-    code{font-family:ui-monospace,Menlo,Consolas,monospace}
-    .footer{padding:30px 0;border-top:1px solid var(--border);color:var(--muted);font-size:14px}
-    @media (max-width: 960px){.hero-grid{grid-template-columns:1fr;gap:26px}.features,.kpis{grid-template-columns:1fr 1fr}h1{font-size:40px}}
-    @media (max-width:640px){.features,.kpis{grid-template-columns:1fr}.nav-links{display:none}h1{font-size:34px}}
-  </style>
 </head>
 <body>
-  <header class="nav">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header class="nav" role="banner">
     <div class="container nav-inner">
-      <div class="brand">
+      <a class="brand" href="index.html" data-track="brand_home">
         <svg viewBox="0 0 32 32" aria-hidden="true">
-          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="var(--primary)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient></defs>
-          <path fill="url(#g)" d="M16 2l9 3v8c0 6.1-3.7 11.9-9 14-5.3-2.1-9-7.9-9-14V5l9-3z"/><path d="M22.5 12l-7 7-3-3" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="var(--primary)" />
+              <stop offset="100%" stop-color="var(--accent)" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#g)" d="M16 2l9 3v8c0 6.1-3.7 11.9-9 14-5.3-2.1-9-7.9-9-14V5l9-3z" />
+          <path d="M22.5 12l-7 7-3-3" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="16" cy="16" r="15" fill="none" stroke="var(--accent)" opacity=".18"/>
         </svg>
         <span>Proofant</span>
-      </div>
-      <nav class="nav-links">
-        <a href="docs.html" id="doc-link">Docs</a>
-        <a class="btn primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="getstarted-link">Get Started</a>
+      </a>
+
+      <!-- Mobile CTA (visible ≤640px) -->
+      <a class="btn primary btn-sm m-cta" href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="m-cta" data-track="nav_github_mobile">Get Started</a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="docs.html" id="doc-link" data-track="nav_docs">Docs</a>
+        <a class="btn primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="getstarted-link" data-track="nav_github">Get Started</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">Abuse & Threat Simulation</div>
-          <h1>Agentic Orchestrator (MVP) + CLI + UI</h1>
+          <div class="eyebrow">Abuse &amp; Threat Simulation</div>
+          <h1>Prove your bot defenses with safe, production‑realistic abuse simulation</h1>
           <p class="sub">
-            Run safe, production‑realistic traffic to uncover weak points before attackers do.
-            Proofant ships with a <strong>visual console</strong> to design scenarios & plans,
-            an <strong>agentic orchestrator (MVP)</strong> to coordinate runs, and a
-            <strong>CLI</strong> for CI/CD.
+            Design scenarios, generate plans, run them, and review artifacts—without hand‑editing JSON everywhere.
+            Ship with a <strong>visual UI console</strong>, an <strong>agentic orchestrator (MVP)</strong>, and a
+            <strong>CLI</strong> that fits CI/CD.
           </p>
           <div class="hero-cta">
-            <a class="btn primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="top-github-link">View on GitHub</a>
-            <a class="btn outline" href="docs.html" id="top-doc-link">Read the docs</a>
+            <a class="btn primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="top-github-link" data-track="hero_github">View on GitHub</a>
+            <a class="btn outline" href="docs.html" id="top-doc-link" data-track="hero_docs">Read the docs</a>
             <span class="hero-card">Open source • Local‑first • Safe by design</span>
           </div>
+
           <div class="kpis">
             <div class="card"><strong>15m</strong><br/><span class="muted">to first simulation</span></div>
             <div class="card"><strong>UI + CLI</strong><br/><span class="muted">one workflow</span></div>
@@ -136,12 +119,16 @@
           </div>
         </div>
 
-        <!-- Simple illustration -->
+        <!-- Illustration -->
         <div aria-hidden="true">
           <svg viewBox="0 0 520 420" width="100%">
             <defs>
-              <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--primary)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient>
-              <linearGradient id="nodeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--accent)"/><stop offset="100%" stop-color="var(--violet)"/></linearGradient>
+              <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--primary)"/><stop offset="100%" stop-color="var(--accent)"/>
+              </linearGradient>
+              <linearGradient id="nodeGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--accent)"/><stop offset="100%" stop-color="var(--violet)"/>
+              </linearGradient>
               <filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="18" result="b"/><feMerge><feMergeNode in="b"/></feMerge></filter>
             </defs>
             <ellipse cx="380" cy="120" rx="120" ry="60" fill="var(--primary)" opacity=".08" filter="url(#soft)"/>
@@ -165,21 +152,21 @@
         <h2>Why Proofant</h2>
         <p class="muted">Purpose‑built to validate real defenses, not just create pretty graphs.</p>
         <div class="features" style="margin-top:16px">
-          <div class="card"><strong>Agentic orchestrator (MVP)</strong><p class="muted">The agent coordinates scenario generation, applies limits, runs variants, and stops gracefully. Room to grow into richer agent flows.</p></div>
+          <div class="card"><strong>Agentic orchestrator (MVP)</strong><p class="muted">Coordinates scenario generation, applies limits, runs variants, and stops gracefully.</p></div>
           <div class="card"><strong>UI + CLI</strong><p class="muted">Design scenarios and plans visually, or drive everything from the CLI for CI/CD.</p></div>
           <div class="card"><strong>Safe by design</strong><p class="muted">Guardrails and a local test app let you exercise flows without touching real users or payments.</p></div>
           <div class="card"><strong>Controls validation</strong><p class="muted">Measure impact on WAF, rate limits, bot defenses, auth, and risk engines with artifacts you can diff over time.</p></div>
-          <div class="card"><strong>Scheduling & Scorecards</strong><p class="muted">Automate recurring runs, export CSV/JSON/JUnit, and gate deploys with thresholds.</p></div>
-          <div class="card"><strong>Open source</strong><p class="muted">Fork it, extend it, and help shape the roadmap. <a href="YOUR_GITHUB_REPO_URL" target="_blank" rel="noopener">Contribute on GitHub</a>.</p></div>
+          <div class="card"><strong>Scheduling &amp; Scorecards</strong><p class="muted">Automate recurring runs, export CSV/JSON/JUnit, and gate deploys with thresholds.</p></div>
+          <div class="card"><strong>Open source</strong><p class="muted">Fork it, extend it, and help shape the roadmap. <a href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" data-track="feature_github">Contribute on GitHub</a>.</p></div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" aria-labelledby="quickstart-title">
       <div class="container">
-        <h2>Quickstart (UI + CLI + Demo Test App)</h2>
+        <h2 id="quickstart-title">Quickstart (UI + CLI + Demo Test App)</h2>
 <pre><code># 1) Clone
-git clone YOUR_GITHUB_REPO_URL
+git clone https://github.com/francoxlam/proofant
 cd proofant
 
 # 2) Create a venv & install
@@ -201,14 +188,14 @@ python webui.py
     </section>
 
     <section class="section" id="cta">
-      <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(90deg,var(--primary-50),#fff);border:1px solid var(--border);border-radius:16px;padding:24px">
+      <div class="container cta">
         <div>
           <h3 style="margin:0 0 6px">Start proving your defenses</h3>
           <p class="muted" style="margin:0">Open source • Local‑first workflow • UI + CLI</p>
         </div>
         <div>
-          <a class="btn primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="second-bottom-github-link">View on GitHub</a>
-          <a class="btn outline" href="docs.html" id="bottom-doc-link">Read the docs</a>
+          <a class="btn primary" href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="second-bottom-github-link" data-track="cta_github">View on GitHub</a>
+          <a class="btn outline" href="docs.html" id="bottom-doc-link" data-track="cta_docs">Read the docs</a>
         </div>
       </div>
     </section>
@@ -217,7 +204,7 @@ python webui.py
   <footer class="footer">
     <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div>&copy; <span id="year"></span> Proofant</div>
-      <div class="muted"><a href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="bottom-github-link">GitHub</a> • Docs</div>
+      <div class="muted"><a href="https://github.com/francoxlam/proofant" target="_blank" rel="noopener" id="bottom-github-link" data-track="footer_github">GitHub</a> • <a href="docs.html" data-track="footer_docs">Docs</a></div>
     </div>
   </footer>
 

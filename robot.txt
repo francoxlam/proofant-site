@@ -1,0 +1,11 @@
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Controls whether Google may use content for Gemini features and future models.
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.proofant.com/sitemap.xml
